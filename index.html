@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Engineering Student Registration</title>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #d9eaf7, #f8faff);
+  color: #333;
+  scroll-behavior: smooth;
+  min-height: 100vh;
+}
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 15px 40px;
+  background: #ffffff;
+  border-bottom: 2px solid #13547a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+header h2 {
+  margin: 0;
+  font-size: 1.7rem;
+  color: #13547a;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+nav a {
+  text-decoration: none;
+  background: #13547a;
+  color: #fff;
+  padding: 8px 18px;
+  margin: 0 6px;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+nav a:hover { background: #0d3a55; }
+
+.form-container {
+  margin-top: 120px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  width: 85%;
+  max-width: 950px;
+  margin-left: auto;
+  margin-right: auto;
+}
+h2 { text-align: center; color: #13547a; }
+fieldset {
+  border: 2px solid #13547a;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  padding: 20px;
+}
+legend { font-weight: 600; color: #13547a; }
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: 500;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  font-size: 1rem;
+}
+input[type="radio"], input[type="checkbox"] {
+  width: auto;
+  margin-right: 5px;
+}
+.buttons { text-align: center; margin-top: 20px; }
+.buttons input {
+  background: #13547a;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  margin: 8px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1rem;
+}
+.buttons input:hover { background: #0d3a55; }
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #555;
+}
+@media (max-width: 768px) {
+  header { flex-direction: column; gap: 10px; }
+  .form-container { width: 95%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h2>Engineering Student Registration</h2>
+  <nav>
+    <a href="index.html" id="homeLink" class="active">Register</a>
+    <a href="student.php">Student List</a>
+  </nav>
+</header>
+
+<div class="form-container" id="registerPage">
+  <h2>🎓 Student Registration Form</h2>
+
+  <!-- ✅ Updated form tag with enctype -->
+  <form id="studentForm" action="insert.php" method="POST" enctype="multipart/form-data">
+
+    <fieldset>
+      <legend>👤 Personal Details</legend>
+      <label>First Name:</label><input type="text" id="fname" name="fname" required>
+      <label>Middle Name:</label><input type="text" id="mname" name="mname">
+      <label>Last Name:</label><input type="text" id="lname" name="lname" required>
+      <label>Date of Birth:</label><input type="date" id="dob" name="dob" required>
+      <label>Gender:</label><br>
+      <input type="radio" name="gender" value="Male" required> Male
+      <input type="radio" name="gender" value="Female"> Female
+      <input type="radio" name="gender" value="Other"> Other <br><br>
+      <label>Email:</label><input type="email" id="email" name="email" required>
+      <label>Password:</label><input type="password" id="password" name="password" required minlength="6">
+      <label>Phone:</label><input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+      <label>Favorite Color:</label><input type="color" id="color" name="color" value="#4e9af1">
+      <label>Profile Photo:</label><input type="file" id="photo" name="photo" accept="image/*">
+      <label>Upload Resume (PDF):</label><input type="file" id="document" name="document" accept=".pdf">
+    </fieldset>
+
+    <fieldset>
+      <legend>🏫 Academic Details</legend>
+      <label>USN Number:</label><input type="text" id="rollno" name="rollno" pattern="[A-Za-z0-9]{10}" required>
+      <label>Department:</label>
+      <select id="department" name="department" required>
+        <option value="">Select Department</option>
+        <option>CSE</option><option>ECE</option><option>AI&ML</option>
+        <option>IS</option><option>MECH</option><option>CIVIL</option><option>EEE</option>
+      </select>
+      <label>Year:</label><input type="number" id="year" name="year" min="1" max="4" required>
+      <label>Semester:</label><input type="number" id="sem" name="sem" min="1" max="8" required>
+      <label>CGPA:</label><input type="number" id="cgpa" name="cgpa" min="0" max="10" step="0.01">
+      <label>Favorite Subject:</label>
+        <input type="text" list="subjects" id="favsub">
+        <datalist id="subjects">
+          <option>JAVA</option><option>HTML</option><option>C</option>
+          <option>C++</option><option>DS</option><option>PYTHON</option>
+          <option>DBMS</option><option>OS</option><option>Networks</option>
+          <option>AI</option><option>ML</option>
+        </datalist>
+      <label>Last Semester Percentage:</label>
+      <input type="range" id="percentage" name="percentage" min="0" max="100" value="70" oninput="output.value = percentage.value">
+      <output name="output" for="percentage">70</output>%
+    </fieldset>
+
+    <fieldset>
+      <legend>⚙️ Additional Details</legend>
+      <label>Address:</label><textarea id="address" name="address" rows="3" required></textarea>
+      <label>City:</label><input type="text" id="city" name="city" required>
+      <label>State:</label>
+      <select id="state" name="state" required>
+        <option value="">--Select--</option>
+        <option>Karnataka</option><option>Tamil Nadu</option>
+        <option>Maharashtra</option><option>Kerala</option>
+      </select>
+      <label>Pincode:</label><input type="number" id="pincode" name="pincode" required>
+      <label>LinkedIn:</label><input type="url" id="linkedin" name="linkedin">
+      <label>GitHub:</label><input type="url" id="github" name="github">
+      <label>Hobbies:</label><input type="text" id="hobbies" placeholder="Reading, Coding, etc.">
+        <label>Clubs Interested:</label><br>
+        <input type="checkbox" name="clubs" value="Coding"> Coding
+        <input type="checkbox" name="clubs" value="Robotics"> Robotics
+        <input type="checkbox" name="clubs" value="Music"> Music
+        <input type="checkbox" name="clubs" value="Sports"> Sports <br><br>
+        <label>Skills:</label><input type="search" id="skills" placeholder="Search skills">
+        <label>Languages Known:</label><input type="text" id="languages" list="langList">
+        <datalist id="langList"><option>English</option><option>Hindi</option><option>Kannada</option></datalist>
+    </fieldset>
+
+    <div class="buttons">
+      <input type="reset" value="Reset">
+      <input type="submit" value="Register">
+    </div>
+  </form>
+</div>
+
+<footer>© 2025 Engineering Student Registration | Developed by You</footer>
+
+<script>
+document.getElementById("studentForm").addEventListener("submit", function(e) {
+  const phone = document.getElementById('phone').value;
+  const rollno = document.getElementById('rollno').value;
+  const pincode = document.getElementById('pincode').value;
+  if (!/^[0-9]{10}$/.test(phone)) {
+    alert("⚠️ Phone number must be 10 digits."); e.preventDefault();
+  } else if (!/^[A-Za-z0-9]{10}$/.test(rollno)) {
+    alert("⚠️ USN must be 10 characters."); e.preventDefault();
+  } else if (!/^[0-9]{6}$/.test(pincode)) {
+    alert("⚠️ Pincode must be 6 digits."); e.preventDefault();
+  }
+});
+</script>
+</body>
+</html>
